@@ -27,5 +27,10 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    field :menus, [Types::MenuType], null: false
+    def menus
+      Menu.all
+    end
   end
 end
