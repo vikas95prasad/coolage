@@ -42,7 +42,7 @@ configurable_section = Section.create!(
 
 # Create non-configurable items
 pepperoni_pizza = Item.create!(
-  category: 'Product',
+  type: 'Product',
   identifier: 'pepperoni_pizza',
   label: 'Pepperoni Pizza',
   description: 'A delicious pepperoni pizza',
@@ -50,7 +50,7 @@ pepperoni_pizza = Item.create!(
 )
 
 margherita_pizza = Item.create!(
-  category: 'Product',
+  type: 'Product',
   identifier: 'margherita_pizza',
   label: 'Margherita Pizza',
   description: 'A classic margherita pizza',
@@ -63,7 +63,7 @@ SectionItem.create!(section: non_configurable_section, item: margherita_pizza)
 
 # Create items that can be used as modifiers
 small_pizza = Item.create!(
-  category: 'Component',
+  type: 'Component',
   identifier: 'small_pizza',
   label: 'Small Pizza',
   description: '10 inch pizza',
@@ -71,7 +71,7 @@ small_pizza = Item.create!(
 )
 
 medium_pizza = Item.create!(
-  category: 'Component',
+  type: 'Component',
   identifier: 'medium_pizza',
   label: 'Medium Pizza',
   description: '12 inch pizza',
@@ -79,7 +79,7 @@ medium_pizza = Item.create!(
 )
 
 large_pizza = Item.create!(
-  category: 'Component',
+  type: 'Component',
   identifier: 'large_pizza',
   label: 'Large Pizza',
   description: '14 inch pizza',
@@ -120,7 +120,7 @@ Modifier.create!(
 
 # Create a pizza item with the size modifier group
 configurable_pizza = Item.create!(
-  category: 'Product',
+  type: 'Product',
   identifier: 'configurable_pizza',
   label: 'Configurable Pizza',
   description: 'A pizza that can be customized',
