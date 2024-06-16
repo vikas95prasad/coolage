@@ -1,6 +1,6 @@
 module Mutations
   class CreateItem < BaseMutation
-    argument :category, String, required: false
+    argument :type, String, required: false
     argument :identifier, String, required: true
     argument :label, String, required: true
     argument :description, String, required: false
@@ -8,9 +8,9 @@ module Mutations
 
     type Types::ItemType
 
-    def resolve(category: nil, identifier:, label:, description: nil, price: nil)
+    def resolve(type: nil, identifier:, label:, description: nil, price: nil)
       Item.create!(
-        category: category,
+        type: type,
         identifier: identifier,
         label: label,
         description: description,

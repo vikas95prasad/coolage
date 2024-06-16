@@ -1,7 +1,7 @@
 module Types
   class ItemType < Types::BaseObject
     field :id, ID, null: false
-    field :category, String, null: true
+    field :type, String, null: true
     field :identifier, String, null: true
     field :label, String, null: true
     field :description, String, null: true

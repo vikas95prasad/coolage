@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  self.inheritance_column = :type
+  self.inheritance_column = :nil
 
   has_many :item_modifier_groups
   has_many :modifier_groups, through: :item_modifier_groups
@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   has_many :section_items
   has_many :sections, through: :section_items
 
-  validates :category, presence: true
+  validates :type, presence: true
   validates :identifier, presence: true, uniqueness: true
   validates :label, presence: true
   validates :description, presence: true
