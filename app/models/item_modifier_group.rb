@@ -1,4 +1,3 @@
-# app/models/item_modifier_group.rb
 class ItemModifierGroup < ApplicationRecord
   belongs_to :item
   belongs_to :modifier_group

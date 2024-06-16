@@ -1,8 +1,8 @@
-# app/models/section_item.rb
 class SectionItem < ApplicationRecord
-  belongs_to :section
   belongs_to :item
+  belongs_to :section
 
-  validates :section_id, presence: true
   validates :item_id, presence: true
+  validates :section_id, presence: true
+  validates :display_order, presence: true, numericality: { only_integer: true }
 end
