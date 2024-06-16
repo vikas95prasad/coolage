@@ -1,8 +1,13 @@
 module Types
   class SectionType < Types::BaseObject
     field :id, ID, null: false
-    field :name, String, null: false
-    field :menu, Types::MenuType, null: false
+    field :identifier, String, null: false
+    field :label, String, null: false
+    field :description, String, null: true
     field :items, [Types::ItemType], null: false
+
+    def items
+      object.items
+    end
   end
 end

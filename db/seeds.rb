@@ -5,45 +5,133 @@
 # Example:
 #
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
+#     MovieGenre.find_or_create_by!(label: genre_name)
 #   end
 
 # Clear existing data
+ItemModifierGroup.destroy_all
 Modifier.destroy_all
 ModifierGroup.destroy_all
+SectionItem.destroy_all
+MenuSection.destroy_all
 Item.destroy_all
 Section.destroy_all
 Menu.destroy_all
 
-# Create non-configurable items
-pepperoni_pizza = Item.create(name: 'Pepperoni Pizza', item_type: 'Product')
-margherita_pizza = Item.create(name: 'Margherita Pizza', item_type: 'Product')
+# Create Menu
+pizza_menu = Menu.create!(
+  identifier: 'pizza_menu',
+  label: 'Pizza Menu',
+  state: 'active',
+  start_date: Date.today,
+  end_date: Date.today + 1.year
+)
 
-# Create a section with non-configurable items
-non_configurable_section = Section.create(name: 'Non-Configurable Items')
-non_configurable_section.items << pepperoni_pizza
-non_configurable_section.items << margherita_pizza
+# Create Sections
+non_configurable_section = Section.create!(
+  identifier: 'non_configurable',
+  label: 'Non-Configurable Items',
+  description: 'Items that do not have any configurable options'
+)
+
+configurable_section = Section.create!(
+  identifier: 'configurable',
+  label: 'Configurable Items',
+  description: 'Items that can be customized with different options'
+)
+
+# Create non-configurable items
+pepperoni_pizza = Item.create!(
+  category: 'Product',
+  identifier: 'pepperoni_pizza',
+  label: 'Pepperoni Pizza',
+  description: 'A delicious pepperoni pizza',
+  price: 12.99
+)
+
+margherita_pizza = Item.create!(
+  category: 'Product',
+  identifier: 'margherita_pizza',
+  label: 'Margherita Pizza',
+  description: 'A classic margherita pizza',
+  price: 10.99
+)
+
+# Create SectionItems for non-configurable section
+SectionItem.create!(section: non_configurable_section, item: pepperoni_pizza)
+SectionItem.create!(section: non_configurable_section, item: margherita_pizza)
 
 # Create items that can be used as modifiers
-small_pizza = Item.create(name: 'Small Pizza', item_type: 'Component')
-medium_pizza = Item.create(name: 'Medium Pizza', item_type: 'Component')
-large_pizza = Item.create(name: 'Large Pizza', item_type: 'Component')
+small_pizza = Item.create!(
+  category: 'Component',
+  identifier: 'small_pizza',
+  label: 'Small Pizza',
+  description: '10 inch pizza',
+  price: 0
+)
+
+medium_pizza = Item.create!(
+  category: 'Component',
+  identifier: 'medium_pizza',
+  label: 'Medium Pizza',
+  description: '12 inch pizza',
+  price: 2.00
+)
+
+large_pizza = Item.create!(
+  category: 'Component',
+  identifier: 'large_pizza',
+  label: 'Large Pizza',
+  description: '14 inch pizza',
+  price: 4.00
+)
 
 # Create a modifier group for pizza sizes
-size_modifier_group = ModifierGroup.create(name: 'Size', min_required: 1, max_required: 1)
-size_modifier_group.modifiers.create(item: small_pizza, default_quantity: 0)
-size_modifier_group.modifiers.create(item: medium_pizza, default_quantity: 0)
-size_modifier_group.modifiers.create(item: large_pizza, default_quantity: 0)
+size_modifier_group = ModifierGroup.create!(
+  identifier: 'size',
+  label: 'Size',
+  selection_required_min: 1,
+  selection_required_max: 1
+)
+
+Modifier.create!(
+  item: small_pizza,
+  modifier_group: size_modifier_group,
+  display_order: 0,
+  default_quantity: 0,
+  price_override: 0.0
+)
+
+Modifier.create!(
+  item: medium_pizza,
+  modifier_group: size_modifier_group,
+  display_order: 1,
+  default_quantity: 1,
+  price_override: 2.0
+)
+
+Modifier.create!(
+  item: large_pizza,
+  modifier_group: size_modifier_group,
+  display_order: 2,
+  default_quantity: 0,
+  price_override: 4.0
+)
 
 # Create a pizza item with the size modifier group
-configurable_pizza = Item.create(name: 'Configurable Pizza', item_type: 'Product')
-configurable_pizza.modifier_groups << size_modifier_group
+configurable_pizza = Item.create!(
+  category: 'Product',
+  identifier: 'configurable_pizza',
+  label: 'Configurable Pizza',
+  description: 'A pizza that can be customized',
+  price: 10.00
+)
 
-# Create a section with configurable items
-configurable_section = Section.create(name: 'Configurable Items')
-configurable_section.items << configurable_pizza
+ItemModifierGroup.create!(item: configurable_pizza, modifier_group: size_modifier_group)
 
-# Create a menu and add the sections to it
-pizza_menu = Menu.create(name: 'Pizza Menu')
-pizza_menu.sections << non_configurable_section
-pizza_menu.sections << configurable_section
+# Create SectionItem for configurable section
+SectionItem.create!(section: configurable_section, item: configurable_pizza)
+
+# Create MenuSections linking menus with sections
+MenuSection.create!(menu: pizza_menu, section: non_configurable_section, display_order: 0)
+MenuSection.create!(menu: pizza_menu, section: configurable_section, display_order: 1)

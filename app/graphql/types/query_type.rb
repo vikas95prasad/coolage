@@ -28,9 +28,20 @@ module Types
       "Hello World!"
     end
 
+    # Query to get all menus
     field :menus, [Types::MenuType], null: false
+
     def menus
       Menu.all
+    end
+
+    # Query to get a single menu by ID
+    field :menu, Types::MenuType, null: false do
+      argument :id, ID, required: true
+    end
+
+    def menu(id:)
+      Menu.find(id)
     end
   end
 end
