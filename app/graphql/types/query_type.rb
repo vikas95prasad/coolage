@@ -28,20 +28,100 @@ module Types
       "Hello World!"
     end
 
-    # Query to get all menus
-    field :menus, [Types::MenuType], null: false
+    field :items, [Types::ItemType], null: false
+    def items
+      Item.all
+    end
 
+    field :item, Types::ItemType, null: false do
+      argument :id, ID, required: true
+    end
+    def item(id:)
+      Item.find(id)
+    end
+
+    field :modifier_groups, [Types::ModifierGroupType], null: false
+    def modifier_groups
+      ModifierGroup.all
+    end
+
+    field :modifier_group, Types::ModifierGroupType, null: false do
+      argument :id, ID, required: true
+    end
+    def modifier_group(id:)
+      ModifierGroup.find(id)
+    end
+
+    field :modifiers, [Types::ModifierType], null: false
+    def modifiers
+      Modifier.all
+    end
+
+    field :modifier, Types::ModifierType, null: false do
+      argument :id, ID, required: true
+    end
+    def modifier(id:)
+      Modifier.find(id)
+    end
+
+    field :menus, [Types::MenuType], null: false
     def menus
       Menu.all
     end
 
-    # Query to get a single menu by ID
     field :menu, Types::MenuType, null: false do
       argument :id, ID, required: true
     end
-
     def menu(id:)
       Menu.find(id)
+    end
+
+    field :menu_sections, [Types::MenuSectionType], null: false
+    def menu_sections
+      MenuSection.all
+    end
+
+    field :menu_section, Types::MenuSectionType, null: false do
+      argument :id, ID, required: true
+    end
+    def menu_section(id:)
+      MenuSection.find(id)
+    end
+
+    field :sections, [Types::SectionType], null: false
+    def sections
+      Section.all
+    end
+
+    field :section, Types::SectionType, null: false do
+      argument :id, ID, required: true
+    end
+    def section(id:)
+      Section.find(id)
+    end
+
+    field :section_items, [Types::SectionItemType], null: false
+    def section_items
+      SectionItem.all
+    end
+
+    field :section_item, Types::SectionItemType, null: false do
+      argument :id, ID, required: true
+    end
+    def section_item(id:)
+      SectionItem.find(id)
+    end
+
+    field :item_modifier_groups, [Types::ItemModifierGroupType], null: false
+    def item_modifier_groups
+      ItemModifierGroup.all
+    end
+
+    field :item_modifier_group, Types::ItemModifierGroupType, null: false do
+      argument :id, ID, required: true
+    end
+    def item_modifier_group(id:)
+      ItemModifierGroup.find(id)
     end
   end
 end
