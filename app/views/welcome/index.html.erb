@@ -1,4 +1,84 @@
-<h2>Hello World</h2>
-<p>
-  The time is now: <%= Time.now %>
-</p>
+<h2>Coolage Restaurant</h2>
+<h3>Queries to retrieve menus, sections, items, modifier groups, and modifiers.</h3>
+<code>
+{
+  menus {
+    id
+    identifier
+    label
+    state
+    startDate
+    endDate
+    sections {
+      id
+      identifier
+      label
+      description
+      items {
+        id
+        identifier
+        label
+        description
+        price
+        modifierGroups {
+          id
+          identifier
+          label
+          selectionRequiredMin
+          selectionRequiredMax
+          modifiers {
+            id
+            defaultQuantity
+            priceOverride
+            item {
+              id
+              identifier
+              label
+              description
+              price
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</code>
+<h3>Create Menu.</h3>
+<code>
+mutation {
+  createMenu(
+    input: {identifier: "menu-5", label: "Menu 1", state: "active", startDate: "2024-01-01", endDate: "2024-12-31"}
+  ) {
+    id
+    identifier
+    label
+    state
+    startDate
+    endDate
+  }
+}
+</code>
+<h3>Update Menu.</h3>
+<code>
+mutation {
+  updateMenu(
+    input: {id: 12, identifier: "menu-5", label: "Menu 1", state: "active", startDate: "2024-01-01", endDate: "2024-12-31"}
+  ) {
+    id
+    identifier
+    label
+    state
+    startDate
+    endDate
+  }
+}
+</code>
+<h3>Delete Menu.</h3>
+<code>
+mutation {
+  deleteMenu(input: {id: 12}) {
+    id
+  }
+}
+</code>
