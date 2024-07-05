@@ -71,3 +71,5 @@ group :test do
 end
 
 gem "graphiql-rails"
+
+gem 'rack-cors', :require => 'rack/cors'
