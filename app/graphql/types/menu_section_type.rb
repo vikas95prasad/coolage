@@ -8,5 +8,6 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :menu, Types::MenuType, null: false
     field :section, Types::SectionType, null: false
+    field :availability, Boolean, null: true
   end
 end

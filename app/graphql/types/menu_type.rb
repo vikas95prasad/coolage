@@ -9,5 +9,11 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :sections, [Types::SectionType], null: true
+
+    def sections
+      Section.joins(:menu_sections)
+             .where(menu_sections: { menu_id: object.id })
+             .order('menu_sections.display_order ASC')
+    end
   end
 end

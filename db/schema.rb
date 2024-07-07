@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_16_095852) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_06_104722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_095852) do
     t.float "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "availability", default: true
     t.index ["identifier"], name: "index_items_on_identifier", unique: true
     t.index ["type"], name: "index_items_on_type"
     t.check_constraint "price >= 0::double precision", name: "check_price_non_negative"
@@ -102,6 +103,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_095852) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "availability", default: true
     t.index ["identifier"], name: "index_sections_on_identifier", unique: true
   end
 

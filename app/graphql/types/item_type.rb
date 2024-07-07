@@ -6,6 +6,7 @@ module Types
     field :label, String, null: true
     field :description, String, null: true
     field :price, Float, null: true
+    field :availability, Boolean, null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :modifier_groups, [Types::ModifierGroupType], null: true
